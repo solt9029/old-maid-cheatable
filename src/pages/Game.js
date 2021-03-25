@@ -147,7 +147,7 @@ export default function GamePage() {
       }
 
       setCurrentPlayerId(nextPlayerId);
-    }, 1500);
+    }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPlayerId]);
 
