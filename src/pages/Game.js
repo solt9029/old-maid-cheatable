@@ -57,11 +57,12 @@ const discardCards = (cards) => {
   return clonedCards;
 };
 
+const initialCurrentPlayerId = Math.floor(Math.random() * 4);
 const initialState = discardCards(assignCards(shuffle(initialCards)));
 
 export default function GamePage() {
   const [currentPlayerId, setCurrentPlayerId] = useState(
-    Math.floor(Math.random() * 4)
+    initialCurrentPlayerId
   );
 
   const [cards, setCards] = useState(initialState);
