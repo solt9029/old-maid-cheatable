@@ -1,4 +1,14 @@
-import { Card as RCard, CardImg, Col, Container, Row, Alert } from "reactstrap";
+import {
+  Card as RCard,
+  CardImg,
+  Col,
+  Container,
+  Row,
+  Alert,
+  Modal,
+  ModalBody,
+  ModalHeader,
+} from "reactstrap";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { backSideImageSrc, cardSet } from "../data/card";
@@ -26,8 +36,8 @@ export default function GamePage() {
     initialCurrentPlayerId
   );
   const [winnerPlayerIds, setWinnerPlayerIds] = useState([]);
-
   const [cards, setCards] = useState(initialCards);
+  const [modalType, setModalType] = useState(undefined);
 
   useEffect(() => {
     setTimeout(() => {
@@ -133,6 +143,12 @@ export default function GamePage() {
           </PlayerArea>
         );
       })}
+      <Modal isOpen={modalType !== undefined}>
+        <ModalHeader>あああ</ModalHeader>
+        <ModalBody>
+          <img src="https://4.bp.blogspot.com/-A_98ygeh-hs/WRLiKxndvtI/AAAAAAABEKo/qNM7t47lNCw4Sq0hEwJH5xhUaN8lnJf5gCLcB/s400/card_back.png" />
+        </ModalBody>
+      </Modal>
     </Container>
   );
 }
