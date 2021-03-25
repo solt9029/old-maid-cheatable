@@ -51,7 +51,8 @@ export default function GamePage() {
   const closeModal = () => {
     if (
       modalType === modalTypes.ONE_PEEK_SUCCESS ||
-      modalType === modalTypes.ALL_PEEK_SUCCESS
+      modalType === modalTypes.ALL_PEEK_SUCCESS ||
+      modalType === modalTypes.HIDE_SUCCESS
     ) {
       setModalType(undefined);
     }
@@ -276,7 +277,39 @@ export default function GamePage() {
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }} color="danger">
+          <Button
+            style={{ width: "100%" }}
+            color="danger"
+            onClick={() => {
+              if (Math.random() >= 0.1) {
+                setModalType(modalTypes.HIDE_FAILURE);
+                return;
+              }
+
+              setModalType(modalTypes.HIDE_SUCCESS);
+              const shuffledCards = shuffle(clone(cards));
+
+              for (let i = 0; i < shuffledCards.length; i++) {
+                if (
+                  shuffledCards[i].isDiscarded === false &&
+                  shuffledCards[i].playerId === currentPlayerId
+                ) {
+                  shuffledCards[i].isDiscarded = true;
+                  break;
+                }
+              }
+              setCards(shuffledCards);
+
+              // この処理で自分のカードがなくなったなら勝利とする
+              if (
+                shuffledCards.find(
+                  (card) => !card.isDiscarded && card.playerId === yourPlayerId
+                ) === undefined
+              ) {
+                setModalType(modalTypes.WIN);
+              }
+            }}
+          >
             自分の手札のカードを1枚隠す（成功率10%）
           </Button>
         </Col>
@@ -306,6 +339,7 @@ export default function GamePage() {
                   shuffledCards[i].playerId === nextPlayerId
                 ) {
                   setOnePeekTarget(shuffledCards[i].imageSrc);
+                  break;
                 }
               }
             }}
@@ -341,7 +375,8 @@ export default function GamePage() {
             alt={getModalImageSrc(modalType)}
           />
           {modalType !== modalTypes.ONE_PEEK_SUCCESS &&
-            modalType !== modalTypes.ALL_PEEK_SUCCESS && (
+            modalType !== modalTypes.ALL_PEEK_SUCCESS &&
+            modalType !== modalTypes.HIDE_SUCCESS && (
               <Button
                 color="success"
                 style={{ width: "100%" }}
