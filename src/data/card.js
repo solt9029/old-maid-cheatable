@@ -3,7 +3,7 @@ export const jokerNumber = 14;
 export const backSideImageSrc =
   "https://4.bp.blogspot.com/-A_98ygeh-hs/WRLiKxndvtI/AAAAAAABEKo/qNM7t47lNCw4Sq0hEwJH5xhUaN8lnJf5gCLcB/s400/card_back.png";
 
-export const initialCards = [
+export const cardSet = [
   {
     number: 1,
     isDiscarded: false,

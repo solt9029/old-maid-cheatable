@@ -1,16 +1,9 @@
 import { Card as RCard, CardImg, Col, Container, Row, Alert } from "reactstrap";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { backSideImageSrc, Card, initialCards } from "../data/card";
-import {
-  chunk,
-  clone,
-  filter,
-  groupBy,
-  shuffle,
-  uniqBy,
-  uniqueId,
-} from "lodash";
+import { backSideImageSrc, cardSet } from "../data/card";
+import { clone, shuffle, uniqBy } from "lodash";
+import { assignCards, discardCards } from "../utils/card";
 
 const StyledCard = styled(RCard)`
   max-width: 100px;
@@ -25,48 +18,8 @@ const PlayerArea = styled.div`
 const yourPlayerId = 0;
 const playerIds = [yourPlayerId, 1, 2, 3];
 
-const assignCards = (cards) => {
-  let clonedCards = clone(cards);
-  let playerIdIndex = Math.floor(Math.random() * playerIds.length);
-
-  for (let i = 0; i < clonedCards.length; i++) {
-    clonedCards[i].playerId = playerIdIndex;
-    playerIdIndex++;
-    if (playerIdIndex >= playerIds.length) {
-      playerIdIndex = 0;
-    }
-  }
-
-  return clonedCards;
-};
-
-const discardCards = (cards) => {
-  let clonedCards = clone(cards);
-
-  for (let fromIndex = 0; fromIndex < clonedCards.length - 1; fromIndex++) {
-    if (clonedCards[fromIndex].isDiscarded === true) {
-      continue;
-    }
-
-    for (let toIndex = fromIndex + 1; toIndex < clonedCards.length; toIndex++) {
-      if (
-        clonedCards[fromIndex].number === clonedCards[toIndex].number &&
-        clonedCards[fromIndex].playerId === clonedCards[toIndex].playerId &&
-        clonedCards[fromIndex].isDiscarded === false &&
-        clonedCards[toIndex].isDiscarded === false
-      ) {
-        clonedCards[fromIndex].isDiscarded = true;
-        clonedCards[toIndex].isDiscarded = true;
-        break;
-      }
-    }
-  }
-
-  return clonedCards;
-};
-
 const initialCurrentPlayerId = Math.floor(Math.random() * 4);
-const initialState = discardCards(assignCards(shuffle(initialCards)));
+const initialCards = discardCards(assignCards(shuffle(cardSet), playerIds));
 
 export default function GamePage() {
   const [currentPlayerId, setCurrentPlayerId] = useState(
@@ -74,7 +27,7 @@ export default function GamePage() {
   );
   const [winnerPlayerIds, setWinnerPlayerIds] = useState([]);
 
-  const [cards, setCards] = useState(initialState);
+  const [cards, setCards] = useState(initialCards);
 
   useEffect(() => {
     setTimeout(() => {
