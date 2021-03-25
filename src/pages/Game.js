@@ -46,12 +46,12 @@ export default function GamePage() {
   const [modalType, setModalType] = useState(undefined);
   const [youWon, setYouWon] = useState(false);
   const [isAllPeakSuccess, setIsAllPeakSuccess] = useState(false);
+  const [onePeekTarget, setOnePeekTarget] = useState(undefined);
 
   const closeModal = () => {
-    if (modalType !== modalTypes.WIN) {
-      return;
+    if (modalType === modalTypes.ONE_PEEK_SUCCESS) {
+      setModalType(undefined);
     }
-    setModalType(undefined);
   };
 
   useEffect(() => {
@@ -80,6 +80,9 @@ export default function GamePage() {
       // 全部見れる状態をやめる
       if (isAllPeakSuccess) {
         setIsAllPeakSuccess(false);
+      }
+      if (onePeekTarget) {
+        setOnePeekTarget(undefined);
       }
 
       let clonedCards = clone(cards);
@@ -225,7 +228,9 @@ export default function GamePage() {
                     >
                       <CardImg
                         src={
-                          card.playerId === yourPlayerId || isAllPeakSuccess
+                          card.playerId === yourPlayerId ||
+                          isAllPeakSuccess ||
+                          card.imageSrc === onePeekTarget
                             ? card.imageSrc
                             : backSideImageSrc
                         }
@@ -269,8 +274,36 @@ export default function GamePage() {
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }} color="info">
-            相手の手札を1枚だけ除いてみる（成功率80%）
+          <Button
+            style={{ width: "100%" }}
+            color="info"
+            onClick={() => {
+              // 失敗
+              if (Math.random() >= 0.7) {
+                setModalType(modalTypes.ONE_PEEK_FAILURE);
+                return;
+              }
+
+              // 成功
+              setModalType(modalTypes.ONE_PEEK_SUCCESS);
+              const nextPlayerId = getNextPlayerId(
+                currentPlayerId,
+                playerIds,
+                winnerPlayerIds
+              );
+              const shuffledCards = shuffle(clone(cards));
+
+              for (let i = 0; i < shuffledCards.length; i++) {
+                if (
+                  shuffledCards[i].isDiscarded === false &&
+                  shuffledCards[i].playerId === nextPlayerId
+                ) {
+                  setOnePeekTarget(shuffledCards[i].imageSrc);
+                }
+              }
+            }}
+          >
+            次のターンの人の手札を1枚だけ除いてみる（成功率70%）
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
@@ -300,15 +333,17 @@ export default function GamePage() {
             src={getModalImageSrc(modalType)}
             alt={getModalImageSrc(modalType)}
           />
-          <Button
-            color="success"
-            style={{ width: "100%" }}
-            onClick={() => {
-              document.location.reload();
-            }}
-          >
-            もう一度遊ぶ
-          </Button>
+          {modalType !== modalTypes.ONE_PEEK_SUCCESS && (
+            <Button
+              color="success"
+              style={{ width: "100%" }}
+              onClick={() => {
+                document.location.reload();
+              }}
+            >
+              もう一度遊ぶ
+            </Button>
+          )}
         </ModalBody>
       </Modal>
     </Container>
