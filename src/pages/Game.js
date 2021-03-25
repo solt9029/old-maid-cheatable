@@ -130,7 +130,63 @@ export default function GamePage() {
                 }
                 return (
                   <Col lg={1} md={1} sm={1} xs={1}>
-                    <StyledCard>
+                    <StyledCard
+                      onClick={() => {
+                        const nextPlayerId = getNextPlayerId(
+                          currentPlayerId,
+                          playerIds,
+                          winnerPlayerIds
+                        );
+                        if (
+                          currentPlayerId !== yourPlayerId ||
+                          card.playerId !== nextPlayerId ||
+                          winnerPlayerIds.includes(yourPlayerId)
+                        ) {
+                          return;
+                        }
+
+                        let clonedCards = clone(cards);
+
+                        // カードを渡す処理
+                        for (let i = 0; i < clonedCards.length; i++) {
+                          if (
+                            clonedCards[i].playerId === nextPlayerId &&
+                            clonedCards[i].isDiscarded === false &&
+                            clonedCards[i].imageSrc === card.imageSrc
+                          ) {
+                            clonedCards[i].playerId = currentPlayerId;
+                            break;
+                          }
+                        }
+
+                        // カードを捨てる処理
+                        const processedCards = shuffle(
+                          discardCards(clonedCards)
+                        );
+
+                        // 勝者決定ロジック
+                        const cardPlayerIds = processedCards.map((card) => {
+                          if (card.isDiscarded) {
+                            return undefined;
+                          }
+                          return card.playerId;
+                        });
+                        const uniqCardPlayerIds = uniqBy(
+                          cardPlayerIds,
+                          (cardPlayerId) => cardPlayerId
+                        );
+                        let winPlayerIds = [];
+                        for (let i = 0; i < 4; i++) {
+                          if (!uniqCardPlayerIds.includes(i)) {
+                            winPlayerIds.push(i);
+                          }
+                        }
+
+                        setCards(processedCards);
+                        setWinnerPlayerIds(winPlayerIds);
+                        setCurrentPlayerId(nextPlayerId);
+                      }}
+                    >
                       <CardImg
                         src={card.imageSrc}
                         alt={card.number.toString()}
