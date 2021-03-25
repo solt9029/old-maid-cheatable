@@ -81,7 +81,7 @@ export default function GamePage() {
       }
 
       // カードを捨てる処理
-      const processedCards = discardCards(clonedCards);
+      const processedCards = shuffle(discardCards(clonedCards));
 
       // 勝者決定ロジック
       const cardPlayerIds = processedCards.map((card) => {
@@ -106,6 +106,7 @@ export default function GamePage() {
       setWinnerPlayerIds(winPlayerIds);
       setCurrentPlayerId(nextPlayerId);
     }, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPlayerId]);
 
   return (
