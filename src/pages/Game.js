@@ -57,14 +57,14 @@ export default function GamePage() {
         return;
       }
 
-      // 自分のターンは自分でアクションさせる
-      if (currentPlayerId === yourPlayerId) {
-        return;
-      }
-
       // 次のプレイヤーとして設定されていたけど、カードが引かれて終了したプレイヤーがCurrentPlayerだった場合には、次のプレイヤーに渡す
       if (winnerPlayerIds.includes(currentPlayerId)) {
         setCurrentPlayerId(nextPlayerId);
+        return;
+      }
+
+      // 自分のターンは自分でアクションさせる
+      if (currentPlayerId === yourPlayerId) {
         return;
       }
 
@@ -113,7 +113,13 @@ export default function GamePage() {
   return (
     <Container>
       <Alert color="info" style={{ marginTop: "30px" }}>
-        {getPlayerName(currentPlayerId, yourPlayerId)}のターンです
+        {getPlayerName(currentPlayerId, yourPlayerId)}のターンです。
+        {currentPlayerId === yourPlayerId
+          ? `${getPlayerName(
+              getNextPlayerId(currentPlayerId, playerIds, winnerPlayerIds),
+              yourPlayerId
+            )}のカードを選んでください。`
+          : ""}
       </Alert>
       {playerIds.map((playerId, index) => {
         return (
