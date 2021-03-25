@@ -8,6 +8,7 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
+  Badge,
 } from "reactstrap";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
@@ -46,11 +47,6 @@ export default function GamePage() {
 
   useEffect(() => {
     setTimeout(() => {
-      // 自分のターンは自分でアクションさせる
-      if (currentPlayerId === yourPlayerId) {
-        return;
-      }
-
       // プレイ中の人が1人のみになったら、次のプレイヤーはいないため終了
       const nextPlayerId = getNextPlayerId(
         currentPlayerId,
@@ -58,6 +54,11 @@ export default function GamePage() {
         winnerPlayerIds
       );
       if (nextPlayerId === undefined) {
+        return;
+      }
+
+      // 自分のターンは自分でアクションさせる
+      if (currentPlayerId === yourPlayerId) {
         return;
       }
 
@@ -119,8 +120,10 @@ export default function GamePage() {
           <PlayerArea key={index}>
             <Row>
               <h3>
-                {getPlayerName(playerId, yourPlayerId)}
-                {winnerPlayerIds.includes(playerId) ? "勝利!" : ""}
+                {getPlayerName(playerId, yourPlayerId)}{" "}
+                <Badge color="warning">
+                  {winnerPlayerIds.includes(playerId) ? "勝利!" : ""}
+                </Badge>
               </h3>
             </Row>
             <Row>
