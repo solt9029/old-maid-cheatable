@@ -147,7 +147,7 @@ export default function GamePage() {
       }
 
       setCurrentPlayerId(nextPlayerId);
-    }, 100);
+    }, 1500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPlayerId]);
 
@@ -270,6 +270,10 @@ export default function GamePage() {
               style={{ width: "100%" }}
               color="warning"
               onClick={() => {
+                if (currentPlayerId !== yourPlayerId) {
+                  return;
+                }
+
                 // 失敗
                 if (Math.random() >= 0.2) {
                   setModalType(modalTypes.ALL_PEEK_FAILURE);
@@ -289,6 +293,10 @@ export default function GamePage() {
               style={{ width: "100%" }}
               color="warning"
               onClick={() => {
+                if (currentPlayerId !== yourPlayerId) {
+                  return;
+                }
+
                 if (Math.random() >= 0.2) {
                   setModalType(modalTypes.ESCAPE_FAILURE);
                   return;
@@ -305,6 +313,10 @@ export default function GamePage() {
               style={{ width: "100%" }}
               color="danger"
               onClick={() => {
+                if (currentPlayerId !== yourPlayerId) {
+                  return;
+                }
+
                 if (Math.random() >= 0.1) {
                   setModalType(modalTypes.HIDE_FAILURE);
                   return;
@@ -343,6 +355,10 @@ export default function GamePage() {
               style={{ width: "100%" }}
               color="info"
               onClick={() => {
+                if (currentPlayerId !== yourPlayerId) {
+                  return;
+                }
+
                 // 失敗
                 if (Math.random() >= 0.7) {
                   setModalType(modalTypes.ONE_PEEK_FAILURE);
@@ -389,6 +405,10 @@ export default function GamePage() {
             <Button
               style={{ width: "100%" }}
               onClick={() => {
+                if (currentPlayerId !== yourPlayerId) {
+                  return;
+                }
+
                 if (Math.random() >= 0.5) {
                   setModalType(modalTypes.TRAUMA_FAILURE);
                   return;
