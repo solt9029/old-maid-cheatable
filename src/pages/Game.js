@@ -285,7 +285,7 @@ export default function GamePage() {
                 setIsAllPeakSuccess(true);
               }}
             >
-              全員の全ての手札を除いてみる（成功率20%）
+              全員の全ての手札を覗いてみる（成功率20%）
             </Button>
           </Col>
           <Col lg={6} style={{ marginBottom: "10px" }}>
@@ -385,7 +385,7 @@ export default function GamePage() {
                 }
               }}
             >
-              次のターンの人の手札を1枚だけ除いてみる（成功率70%）
+              次のターンの人の手札を1枚だけ覗いてみる（成功率70%）
             </Button>
           </Col>
           <Col lg={6} style={{ marginBottom: "10px" }}>
