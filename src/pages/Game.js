@@ -16,6 +16,8 @@ import { backSideImageSrc, cardSet } from "../data/card";
 import { clone, shuffle, uniqBy } from "lodash";
 import { assignCards, discardCards } from "../utils/card";
 import { getNextPlayer, getNextPlayerId, getPlayerName } from "../utils/player";
+import { modalTypes } from "../constants";
+import { getModalImageSrc, getModalTitle } from "../utils/modal";
 
 const StyledCard = styled(RCard)`
   max-width: 100px;
@@ -108,7 +110,7 @@ export default function GamePage() {
       setWinnerPlayerIds(winPlayerIds);
       if (winPlayerIds.includes(yourPlayerId) && youWon === false) {
         setYouWon(true);
-        setModalType("win");
+        setModalType(modalTypes.WIN);
       }
 
       setCurrentPlayerId(nextPlayerId);
@@ -204,7 +206,7 @@ export default function GamePage() {
                           youWon === false
                         ) {
                           setYouWon(true);
-                          setModalType("win");
+                          setModalType(modalTypes.WIN);
                         }
 
                         setCurrentPlayerId(nextPlayerId);
@@ -223,9 +225,15 @@ export default function GamePage() {
         );
       })}
       <Modal toggle={closeModal} isOpen={modalType !== undefined}>
-        <ModalHeader toggle={closeModal}>タイトル</ModalHeader>
+        <ModalHeader toggle={closeModal}>
+          {getModalTitle(modalType)}
+        </ModalHeader>
         <ModalBody>
-          <img src="https://4.bp.blogspot.com/-A_98ygeh-hs/WRLiKxndvtI/AAAAAAABEKo/qNM7t47lNCw4Sq0hEwJH5xhUaN8lnJf5gCLcB/s400/card_back.png" />
+          <img
+            width="100%"
+            src={getModalImageSrc(modalType)}
+            alt={getModalImageSrc(modalType)}
+          />
         </ModalBody>
       </Modal>
     </Container>
