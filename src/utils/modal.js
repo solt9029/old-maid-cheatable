@@ -9,7 +9,7 @@ export const getModalTitle = (modalType) => {
     case modalTypes.ALL_PEEK_SUCCESS:
       return "手札を覗くのに成功した！いえーい！";
     case modalTypes.ALL_PEEK_FAILURE:
-      return "手札を覗くのに失敗した！みんなの信用を失った。もう元に戻れない。";
+      return "手札を覗くのに失敗した！みんなの信用を失った。もう誰も味方はいない。";
     case modalTypes.ONE_PEEK_SUCCESS:
       return "手札を1枚覗くのに成功した！";
     case modalTypes.ONE_PEEK_FAILURE:
@@ -19,9 +19,13 @@ export const getModalTitle = (modalType) => {
     case modalTypes.HIDE_FAILURE:
       return "手札を1枚隠すのに失敗した！みんな怒っている。";
     case modalTypes.ESCAPE_FAILURE:
-      return "にげられない！";
+      return "にげられない！なぜか自分の負けということにされた。";
     case modalTypes.ESCAPE_SUCCESS:
       return "うまく　にげきれた！";
+    case modalTypes.TRAUMA_FAILURE:
+      return "ババ抜きにトラウマがあると伝えても解散できなかった！なぜか自分の負けということにされた。";
+    case modalTypes.TRAUMA_SUCCESS:
+      return "ババ抜きは解散になった！";
     default:
       return "";
   }
@@ -49,6 +53,10 @@ export const getModalImageSrc = (modalType) => {
       return "https://1.bp.blogspot.com/-3p9B_7sTMiY/UupGaR4cRXI/AAAAAAAAdbM/b9iA05X5oOU/s800/tsunami_nigeru.png";
     case modalTypes.ESCAPE_FAILURE:
       return "https://4.bp.blogspot.com/-pi2OEw0-Eew/XJB5M76Zf9I/AAAAAAABR9I/5FrJ3BqUJtUKKUVvvIJnxQ54v6O97HL0ACLcBGAs/s800/science_hakase_shippai.png";
+    case modalTypes.TRAUMA_SUCCESS:
+      return "https://3.bp.blogspot.com/-7WkRMKaT7IA/WzC98HBmJNI/AAAAAAABM9I/LhdySi0YzrA8F8YdPNn-1cPSsJJvXI7fwCLcBGAs/s800/trauma_man.png";
+    case modalTypes.TRAUMA_FAILURE:
+      return "https://1.bp.blogspot.com/-P-vYgqdM-Ls/VCOJsbExe2I/AAAAAAAAm1Q/GQozVl81iEY/s800/hansei_koukai_man.png";
     default:
       return "";
   }

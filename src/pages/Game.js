@@ -370,7 +370,16 @@ export default function GamePage() {
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }}>
+          <Button
+            style={{ width: "100%" }}
+            onClick={() => {
+              if (Math.random() >= 0.5) {
+                setModalType(modalTypes.TRAUMA_FAILURE);
+                return;
+              }
+              setModalType(modalTypes.TRAUMA_SUCCESS);
+            }}
+          >
             ババ抜きにトラウマがあることを打ち明けて解散する（成功率50%）
           </Button>
         </Col>
