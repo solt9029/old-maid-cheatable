@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/old-maid-cheatable/static/js/main.8f9063b3.chunk.js",
-    "main.js.map": "/old-maid-cheatable/static/js/main.8f9063b3.chunk.js.map",
+    "main.js": "/old-maid-cheatable/static/js/main.91d95d1c.chunk.js",
+    "main.js.map": "/old-maid-cheatable/static/js/main.91d95d1c.chunk.js.map",
     "runtime-main.js": "/old-maid-cheatable/static/js/runtime-main.3ad7ee97.js",
     "runtime-main.js.map": "/old-maid-cheatable/static/js/runtime-main.3ad7ee97.js.map",
     "static/css/2.150d169a.chunk.css": "/old-maid-cheatable/static/css/2.150d169a.chunk.css",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.3ad7ee97.js",
     "static/css/2.150d169a.chunk.css",
     "static/js/2.dbe2edb7.chunk.js",
-    "static/js/main.8f9063b3.chunk.js"
+    "static/js/main.91d95d1c.chunk.js"
   ]
 }
