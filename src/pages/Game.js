@@ -40,6 +40,7 @@ export default function GamePage() {
   const [winnerPlayerIds, setWinnerPlayerIds] = useState([]);
   const [cards, setCards] = useState(initialCards);
   const [modalType, setModalType] = useState(undefined);
+  const [youWon, setYouWon] = useState(false);
 
   const closeModal = () => {
     setModalType(undefined);
@@ -105,8 +106,13 @@ export default function GamePage() {
       // 最後にセット
       setCards(processedCards);
       setWinnerPlayerIds(winPlayerIds);
+      if (winPlayerIds.includes(yourPlayerId) && youWon === false) {
+        setYouWon(true);
+        setModalType("win");
+      }
+
       setCurrentPlayerId(nextPlayerId);
-    }, 3000);
+    }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPlayerId]);
 
@@ -193,6 +199,14 @@ export default function GamePage() {
 
                         setCards(processedCards);
                         setWinnerPlayerIds(winPlayerIds);
+                        if (
+                          winPlayerIds.includes(yourPlayerId) &&
+                          youWon === false
+                        ) {
+                          setYouWon(true);
+                          setModalType("win");
+                        }
+
                         setCurrentPlayerId(nextPlayerId);
                       }}
                     >
