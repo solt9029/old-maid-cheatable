@@ -9,6 +9,7 @@ import {
   ModalBody,
   ModalHeader,
   Badge,
+  Button,
 } from "reactstrap";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
@@ -224,6 +225,36 @@ export default function GamePage() {
           </PlayerArea>
         );
       })}
+      <Row style={{ marginTop: "50px", marginBottom: "30px" }}>
+        <Col lg={6} style={{ marginBottom: "10px" }}>
+          <Button style={{ width: "100%" }}>
+            全員の全ての手札を除いてみる（成功率20%）
+          </Button>
+        </Col>
+        <Col lg={6} style={{ marginBottom: "10px" }}>
+          <Button style={{ width: "100%" }}>逃げる（成功率20%）</Button>
+        </Col>
+        <Col lg={6} style={{ marginBottom: "10px" }}>
+          <Button style={{ width: "100%" }}>
+            自分の手札のカードを1枚隠す（成功率10%）
+          </Button>
+        </Col>
+        <Col lg={6} style={{ marginBottom: "10px" }}>
+          <Button style={{ width: "100%" }}>
+            相手の手札を1枚だけ除いてみる（成功率80%）
+          </Button>
+        </Col>
+        <Col lg={6} style={{ marginBottom: "10px" }}>
+          <Button style={{ width: "100%" }}>
+            おもむろにTwitterを始める（成功率100%）
+          </Button>
+        </Col>
+        <Col lg={6} style={{ marginBottom: "10px" }}>
+          <Button style={{ width: "100%" }}>
+            ババ抜きにトラウマがあることを打ち明けて解散する（成功率50%）
+          </Button>
+        </Col>
+      </Row>
       <Modal toggle={closeModal} isOpen={modalType !== undefined}>
         <ModalHeader toggle={closeModal}>
           {getModalTitle(modalType)}
