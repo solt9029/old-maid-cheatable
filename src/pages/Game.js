@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { backSideImageSrc, cardSet } from "../data/card";
 import { clone, shuffle, uniqBy } from "lodash";
 import { assignCards, discardCards } from "../utils/card";
+import { getNextPlayer, getNextPlayerId } from "../utils/player";
 
 const StyledCard = styled(RCard)`
   max-width: 100px;
@@ -45,35 +46,30 @@ export default function GamePage() {
 
   useEffect(() => {
     setTimeout(() => {
-      // 終了条件
-      if (winnerPlayerIds.length >= 3) {
-        return;
-      }
-
       // 自分のターンは自分でアクションさせる
       if (currentPlayerId === yourPlayerId) {
         return;
       }
 
-      let clonedCards = clone(cards);
-
-      let nextPlayerId = currentPlayerId;
-
-      while (
-        winnerPlayerIds.includes(nextPlayerId) === true ||
-        nextPlayerId === currentPlayerId
-      ) {
-        nextPlayerId = nextPlayerId + 1;
-        if (nextPlayerId > 3) {
-          nextPlayerId = 0;
-        }
+      // プレイ中の人が1人のみになったら、次のプレイヤーはいないため終了
+      const nextPlayerId = getNextPlayerId(
+        currentPlayerId,
+        playerIds,
+        winnerPlayerIds
+      );
+      if (nextPlayerId === undefined) {
+        return;
       }
 
+      // 次のプレイヤーとして設定されていたけど、カードが引かれて終了したプレイヤーがCurrentPlayerだった場合には、次のプレイヤーに渡す
       if (winnerPlayerIds.includes(currentPlayerId)) {
         setCurrentPlayerId(nextPlayerId);
         return;
       }
 
+      let clonedCards = clone(cards);
+
+      // カードを渡す処理
       for (let i = 0; i < clonedCards.length; i++) {
         if (
           clonedCards[i].playerId === nextPlayerId &&
@@ -84,6 +80,7 @@ export default function GamePage() {
         }
       }
 
+      // カードを捨てる処理
       const processedCards = discardCards(clonedCards);
 
       // 勝者決定ロジック
@@ -104,6 +101,7 @@ export default function GamePage() {
         }
       }
 
+      // 最後にセット
       setCards(processedCards);
       setWinnerPlayerIds(winPlayerIds);
       setCurrentPlayerId(nextPlayerId);
