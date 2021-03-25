@@ -134,7 +134,7 @@ export default function GamePage() {
               <h3>
                 {getPlayerName(playerId, yourPlayerId)}{" "}
                 <Badge color="warning">
-                  {winnerPlayerIds.includes(playerId) ? "勝利!" : ""}
+                  {winnerPlayerIds.includes(playerId) ? "勝利" : ""}
                 </Badge>
               </h3>
             </Row>
