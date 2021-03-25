@@ -22,3 +22,7 @@ export const getNextPlayerId = (
 
   return nextPlayerId;
 };
+
+export const getPlayerName = (playerId, yourPlayerId) => {
+  return playerId === yourPlayerId ? "あなた" : `プレイヤー${playerId}`;
+};

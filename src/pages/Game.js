@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { backSideImageSrc, cardSet } from "../data/card";
 import { clone, shuffle, uniqBy } from "lodash";
 import { assignCards, discardCards } from "../utils/card";
-import { getNextPlayer, getNextPlayerId } from "../utils/player";
+import { getNextPlayer, getNextPlayerId, getPlayerName } from "../utils/player";
 
 const StyledCard = styled(RCard)`
   max-width: 100px;
@@ -111,17 +111,14 @@ export default function GamePage() {
   return (
     <Container>
       <Alert color="info" style={{ marginTop: "30px" }}>
-        {currentPlayerId === yourPlayerId
-          ? "あなた"
-          : `プレイヤー${currentPlayerId}`}
-        のターンです
+        {getPlayerName(currentPlayerId, yourPlayerId)}のターンです
       </Alert>
       {playerIds.map((playerId, index) => {
         return (
           <PlayerArea key={index}>
             <Row>
               <h3>
-                {playerId === yourPlayerId ? "あなた" : `プレイヤー${playerId}`}
+                {getPlayerName(playerId, yourPlayerId)}
                 {winnerPlayerIds.includes(playerId) ? "勝利!" : ""}
               </h3>
             </Row>
