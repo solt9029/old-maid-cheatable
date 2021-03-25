@@ -19,6 +19,7 @@ import { assignCards, discardCards } from "../utils/card";
 import { getNextPlayer, getNextPlayerId, getPlayerName } from "../utils/player";
 import { modalTypes } from "../constants";
 import { getModalImageSrc, getModalTitle } from "../utils/modal";
+import { Link } from "react-router-dom";
 
 const StyledCard = styled(RCard)`
   max-width: 100px;
@@ -44,8 +45,12 @@ export default function GamePage() {
   const [cards, setCards] = useState(initialCards);
   const [modalType, setModalType] = useState(undefined);
   const [youWon, setYouWon] = useState(false);
+  const [isAllPeakSuccess, setIsAllPeakSuccess] = useState(false);
 
   const closeModal = () => {
+    if (modalType !== modalTypes.WIN) {
+      return;
+    }
     setModalType(undefined);
   };
 
@@ -70,6 +75,11 @@ export default function GamePage() {
       // 自分のターンは自分でアクションさせる
       if (currentPlayerId === yourPlayerId) {
         return;
+      }
+
+      // 全部見れる状態をやめる
+      if (isAllPeakSuccess) {
+        setIsAllPeakSuccess(false);
       }
 
       let clonedCards = clone(cards);
@@ -214,7 +224,11 @@ export default function GamePage() {
                       }}
                     >
                       <CardImg
-                        src={card.imageSrc}
+                        src={
+                          card.playerId === yourPlayerId || isAllPeakSuccess
+                            ? card.imageSrc
+                            : backSideImageSrc
+                        }
                         alt={card.number.toString()}
                       />
                     </StyledCard>
@@ -227,7 +241,20 @@ export default function GamePage() {
       })}
       <Row style={{ marginTop: "50px", marginBottom: "30px" }}>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }} color="warning">
+          <Button
+            style={{ width: "100%" }}
+            color="warning"
+            onClick={() => {
+              // 失敗
+              if (Math.random() >= 0.2) {
+                setModalType(modalTypes.ALL_PEEK_FAILURE);
+                return;
+              }
+
+              // 成功
+              setIsAllPeakSuccess(true);
+            }}
+          >
             全員の全ての手札を除いてみる（成功率20%）
           </Button>
         </Col>
@@ -273,6 +300,15 @@ export default function GamePage() {
             src={getModalImageSrc(modalType)}
             alt={getModalImageSrc(modalType)}
           />
+          <Button
+            color="success"
+            style={{ width: "100%" }}
+            onClick={() => {
+              document.location.reload();
+            }}
+          >
+            もう一度遊ぶ
+          </Button>
         </ModalBody>
       </Modal>
     </Container>

@@ -1,4 +1,4 @@
-import { Route, Router, Switch } from "react-router";
+import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import Game from "./pages/Game";
 
