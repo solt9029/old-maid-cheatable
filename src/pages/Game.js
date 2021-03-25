@@ -1,4 +1,4 @@
-import { Card as RCard, CardImg, Col, Container, Row } from "reactstrap";
+import { Card as RCard, CardImg, Col, Container, Row, Alert } from "reactstrap";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { backSideImageSrc, Card, initialCards } from "../data/card";
@@ -78,7 +78,13 @@ export default function GamePage() {
 
   useEffect(() => {
     setTimeout(() => {
+      // 終了条件
       if (winnerPlayerIds.length >= 3) {
+        return;
+      }
+
+      // 自分のターンは自分でアクションさせる
+      if (currentPlayerId === yourPlayerId) {
         return;
       }
 
@@ -134,11 +140,17 @@ export default function GamePage() {
       setCards(processedCards);
       setWinnerPlayerIds(winPlayerIds);
       setCurrentPlayerId(nextPlayerId);
-    }, 2000);
+    }, 3000);
   }, [currentPlayerId]);
 
   return (
     <Container>
+      <Alert color="info" style={{ marginTop: "30px" }}>
+        {currentPlayerId === yourPlayerId
+          ? "あなた"
+          : `プレイヤー${currentPlayerId}`}
+        のターンです
+      </Alert>
       {playerIds.map((playerId, index) => {
         return (
           <PlayerArea key={index}>
