@@ -39,6 +39,10 @@ export default function GamePage() {
   const [cards, setCards] = useState(initialCards);
   const [modalType, setModalType] = useState(undefined);
 
+  const closeModal = () => {
+    setModalType(undefined);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       // 終了条件
@@ -143,8 +147,8 @@ export default function GamePage() {
           </PlayerArea>
         );
       })}
-      <Modal isOpen={modalType !== undefined}>
-        <ModalHeader>あああ</ModalHeader>
+      <Modal toggle={closeModal} isOpen={modalType !== undefined}>
+        <ModalHeader toggle={closeModal}>タイトル</ModalHeader>
         <ModalBody>
           <img src="https://4.bp.blogspot.com/-A_98ygeh-hs/WRLiKxndvtI/AAAAAAABEKo/qNM7t47lNCw4Sq0hEwJH5xhUaN8lnJf5gCLcB/s400/card_back.png" />
         </ModalBody>
