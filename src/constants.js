@@ -1,5 +1,6 @@
 export const modalTypes = Object.freeze({
   WIN: "win",
+  LOSE: "lose",
   ALL_PEEK_SUCCESS: "all_peak_success",
   ALL_PEEK_FAILURE: "all_peek_failure",
   ESCAPE_SUCCESS: "escape_success",

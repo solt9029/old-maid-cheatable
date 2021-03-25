@@ -49,7 +49,10 @@ export default function GamePage() {
   const [onePeekTarget, setOnePeekTarget] = useState(undefined);
 
   const closeModal = () => {
-    if (modalType === modalTypes.ONE_PEEK_SUCCESS) {
+    if (
+      modalType === modalTypes.ONE_PEEK_SUCCESS ||
+      modalType === modalTypes.ALL_PEEK_SUCCESS
+    ) {
       setModalType(undefined);
     }
   };
@@ -63,6 +66,9 @@ export default function GamePage() {
         winnerPlayerIds
       );
       if (nextPlayerId === undefined) {
+        if (winnerPlayerIds.includes(yourPlayerId) === false) {
+          setModalType(modalTypes.LOSE);
+        }
         return;
       }
 
@@ -257,6 +263,7 @@ export default function GamePage() {
               }
 
               // 成功
+              setModalType(modalTypes.ALL_PEEK_SUCCESS);
               setIsAllPeakSuccess(true);
             }}
           >
@@ -333,17 +340,18 @@ export default function GamePage() {
             src={getModalImageSrc(modalType)}
             alt={getModalImageSrc(modalType)}
           />
-          {modalType !== modalTypes.ONE_PEEK_SUCCESS && (
-            <Button
-              color="success"
-              style={{ width: "100%" }}
-              onClick={() => {
-                document.location.reload();
-              }}
-            >
-              もう一度遊ぶ
-            </Button>
-          )}
+          {modalType !== modalTypes.ONE_PEEK_SUCCESS &&
+            modalType !== modalTypes.ALL_PEEK_SUCCESS && (
+              <Button
+                color="success"
+                style={{ width: "100%" }}
+                onClick={() => {
+                  document.location.reload();
+                }}
+              >
+                もう一度遊ぶ
+              </Button>
+            )}
         </ModalBody>
       </Modal>
     </Container>
