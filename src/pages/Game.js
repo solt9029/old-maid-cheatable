@@ -227,26 +227,34 @@ export default function GamePage() {
       })}
       <Row style={{ marginTop: "50px", marginBottom: "30px" }}>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }}>
+          <Button style={{ width: "100%" }} color="warning">
             全員の全ての手札を除いてみる（成功率20%）
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }}>逃げる（成功率20%）</Button>
+          <Button style={{ width: "100%" }} color="warning">
+            逃げる（成功率20%）
+          </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }}>
+          <Button style={{ width: "100%" }} color="danger">
             自分の手札のカードを1枚隠す（成功率10%）
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }}>
+          <Button style={{ width: "100%" }} color="info">
             相手の手札を1枚だけ除いてみる（成功率80%）
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }}>
-            おもむろにTwitterを始める（成功率100%）
+          <Button
+            color="primary"
+            style={{ width: "100%" }}
+            onClick={() => {
+              window.open("https://twitter.com/solt9029", { target: "_blank" });
+            }}
+          >
+            おもむろにTwitterを眺める（成功率100%）
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
