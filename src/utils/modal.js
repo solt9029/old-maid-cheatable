@@ -18,6 +18,10 @@ export const getModalTitle = (modalType) => {
       return "手札を1枚隠すのに成功した！";
     case modalTypes.HIDE_FAILURE:
       return "手札を1枚隠すのに失敗した！みんな怒っている。";
+    case modalTypes.ESCAPE_FAILURE:
+      return "にげられない！";
+    case modalTypes.ESCAPE_SUCCESS:
+      return "うまく　にげきれた！";
     default:
       return "";
   }
@@ -41,6 +45,10 @@ export const getModalImageSrc = (modalType) => {
       return "https://4.bp.blogspot.com/-et7VAwDedBQ/VRUSN-0cQrI/AAAAAAAAsnw/BAvMLCEi-Fk/s800/pose_kakushigoto_man.png";
     case modalTypes.HIDE_FAILURE:
       return "https://1.bp.blogspot.com/-xzq_tZkKTB0/W_UF9MyiAhI/AAAAAAABQUA/I4vsC7Zv1Ig35-B0h5z3Lz2F2boZmJI2wCLcBGAs/s800/cooking_shippai_woman2.png";
+    case modalTypes.ESCAPE_SUCCESS:
+      return "https://1.bp.blogspot.com/-3p9B_7sTMiY/UupGaR4cRXI/AAAAAAAAdbM/b9iA05X5oOU/s800/tsunami_nigeru.png";
+    case modalTypes.ESCAPE_FAILURE:
+      return "https://4.bp.blogspot.com/-pi2OEw0-Eew/XJB5M76Zf9I/AAAAAAABR9I/5FrJ3BqUJtUKKUVvvIJnxQ54v6O97HL0ACLcBGAs/s800/science_hakase_shippai.png";
     default:
       return "";
   }

@@ -272,7 +272,18 @@ export default function GamePage() {
           </Button>
         </Col>
         <Col lg={6} style={{ marginBottom: "10px" }}>
-          <Button style={{ width: "100%" }} color="warning">
+          <Button
+            style={{ width: "100%" }}
+            color="warning"
+            onClick={() => {
+              if (Math.random() >= 0.2) {
+                setModalType(modalTypes.ESCAPE_FAILURE);
+                return;
+              }
+
+              setModalType(modalTypes.ESCAPE_SUCCESS);
+            }}
+          >
             逃げる（成功率20%）
           </Button>
         </Col>
