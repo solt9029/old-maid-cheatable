@@ -10,7 +10,6 @@ phases:
   pre_build:
     commands:
       - echo Entring app directory
-      - cd react-app
       - yarn install
   build:
     commands:
@@ -23,4 +22,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: react-app/build
+  base-directory: build
