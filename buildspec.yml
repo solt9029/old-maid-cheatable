@@ -10,12 +10,14 @@ phases:
   pre_build:
     commands:
       - echo Entring app directory
+      - cd old-maid-cheatable
       - yarn install
   build:
     commands:
       - echo Build started on `date`
+      - cd old-maid-cheatable
       - yarn build
 artifacts:
   files:
     - '**/*'
-  base-directory: build
+  base-directory: old-maid-cheatable/build
