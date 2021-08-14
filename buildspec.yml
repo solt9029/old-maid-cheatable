@@ -7,14 +7,8 @@ phases:
       - node -v
       - npm -v
       - yarn -v
-  pre_build:
-    commands:
-      - echo Entring app directory
-      - ls
-      - cd old-maid-cheatable
   build:
     commands:
-      - echo Build started on `date`
       - npm run build
 artifacts:
   files:
